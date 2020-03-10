@@ -17,16 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//List articles
-Route::get('articles','ArticleController@index')->name('articles.index');
+Route::group(['middleware'=>'api'],function (){
+    //List articles
+    Route::get('articles','ArticleController@index')->name('articles.index');
 //List single article
-Route::get('article/{article}','ArticleController@shoe')->name('article.show');
+    Route::get('article/{article}','ArticleController@show')->name('article.show');
 
 //Create new article
-Route::post('article','ArticleController@store')->name('article.store');
+    Route::post('article','ArticleController@store')->name('article.store');
 
 //Update article
-Route::put('article/{article}/edit','ArticleController@store')->name('article.update');
+    Route::put('article/{article}/edit','ArticleController@update')->name('article.update');
 
 //Delete article
-Route::delete('article/{article}/delete','ArticleController@destroy')->name('article.delete');
+    Route::delete('article/{article}/delete','ArticleController@destroy')->name('article.delete');
+
+});
